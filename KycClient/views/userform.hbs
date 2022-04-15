@@ -3,57 +3,69 @@
 <div class="container">
   <h2>KYC Registration</h2>
 
-  <form >
+  <form>
     <div class="form-group">
       <div class="row">
-      <label class="col-25" for="publicKey">Public Key:</label>
-      <input type="text" class="col-75 form-control" id="publicKeyOnUserForm" placeholder="" readonly name="publicKey">
+        <label class="col-25" for="publicKey">Public Key:</label>
+        <input type="text" class="col-75 form-control" id="publicKeyOnUserForm" placeholder="" readonly
+          name="publicKey">
       </div>
     </div>
     <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" class="form-control" id="name" placeholder="Enter name" required name="name">
+      <label for="id">ID:</label>
+      <input type="text" class="form-control" id="ID" placeholder="Enter ID" required name="id">
     </div>
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" required name="email">
+      <label for="hologramId">Hologram ID:</label>
+      <input type="text" class="form-control" id="HologramID" placeholder="Enter Hologram ID" required
+        name="hologramId">
     </div>
     <div class="form-group">
-      <label for="dob">Date Of Birth:</label>
-      <input type="date" class="form-control" required id="dob" name="dob">
+      <label for="fromNo">From Number:</label>
+      <input type="text" class="form-control" required id="FromNumber" placeholder="Enter From Number" name="fromNo">
     </div>
     <div class="form-group">
-      <label for="adderss">Adderss</label>
-      <textarea class="form-control" name="adderss" required id="adderss" rows="3"></textarea>
+      <label for="toNumber">To Number</label>
+      <input class="form-control" name="toNumber" required placeholder="Enter To Number" id="ToNumber">
     </div>
     <div class="form-group">
-      <label for="mobile">Phone Number:</label>
-      <input type="number" class="form-control" id="mobile" required placeholder="Enter Phone Number" name="mobile">
+      <label for="Quantity">Quantity:</label>
+      <input type="number" class="form-control" id="Quantity" required placeholder="Enter Quantity" name="Quantity">
     </div>
     <div class="form-group">
-      <label for="pincode">Pincode</label>
-      <input type="number" class="form-control" id="pincode" required placeholder="6 digit PinCode" name="pincode">
+      <label for="organisationId">OrganisationId</label>
+      <input type="number" class="form-control" id="OrganisationID" required placeholder="enter organisationId"
+        name="organisationId">
     </div>
     <div class="form-group">
-      <label for="aadhar">Aadhar ID:</label>
-      <input type="number" class="form-control" id="aadhar" required placeholder="Enter 12 digit Aadhar Id" name="aadhar">
+      <label for="isActive">IsActive:</label>
+      <input type="number" class="form-control" id="IsActive" required placeholder="Enter isActive" name="isActive">
     </div>
     <div class="form-group">
-      <label for="voter">Voter ID:</label>
-      <input type="number" class="form-control" id="voter" required placeholder="Enter 10 digit Voter Id" name="Voter">
+      <label for="createdDate">Created Date:</label>
+      <input type="date" class="form-control" id="voter" required placeholder="Enter date" name="CreatedDate">
+    </div>
+    <div class="form-group">
+      <label for="warehouseID">Warehouse ID:</label>
+      <input type="number" class="form-control" id="WareHouseID" required placeholder="Enter Warehouse ID"
+        name="warehouseID">
+    </div>
+    <div class="form-group">
+      <label for="prefix">Prefix:</label>
+      <input type="number" class="form-control" id="Prefix" required placeholder="Enter Prefix" name="prefix">
     </div>
     <div class="form-group">
       <label for="enKey">Encryption Key:</label>
       <input type="password" class="form-control" id="enKey" required placeholder="Enter Encryption Key" name="enKey">
     </div>
-     <div class="col-sm-10 ">
-    <button class="btn btn-primary" onclick="postUserData(event)">Submit</button>
+    <div class="col-sm-10 ">
+      <button class="btn btn-primary" onclick="postUserData(event)">Submit</button>
     </div>
-    </form>
-    <br>
-    <br>
-    <br>
-  
+  </form>
+  <br>
+  <br>
+  <br>
+
 </div>
 {{> footer }}
 <script src="/javascripts/user.js"></script>

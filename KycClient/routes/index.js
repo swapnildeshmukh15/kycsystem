@@ -37,28 +37,31 @@ router.post("/userData", (req, res, next) => {
 	try {
 		const Key = req.body.privateKey;
 		const pub_key = req.body.pub_key;
-		const name = req.body.name;
-		const email = req.body.email;
-		const dob = req.body.dob;
-		const location = req.body.location;
-		const mobile = req.body.mobile;
-		const pincode = req.body.pincode;
-		const aadhar = req.body.aadhar;
-		const Voter = req.body.voter ;
+		const id = req.body.id;
+		const fromNumber = req.body.fromNumber;
+		const toNumber = req.body.toNumber;
+		const quantity = req.body.quantity;
+		const organisationID = req.body.organisationID;
+		const isActive = req.body.isActive;
+		const createdDate = req.body.createdDate;
+		const wareHouseID = req.body.wareHouseID;
+		const prefix = req.body.prefix;
 		const enKey = req.body.enKey;
+
 		console.log("Data sent to REST API");
 		addUserData(
 			Key,
 			pub_key,
+			id,
+			fromNumber,
+			toNumber,
+			quantity,
+			organisationID,
+			isActive,
+			createdDate,
+			wareHouseID,
+			prefix,
 			enKey,
-			name,
-			email,
-			dob,
-			location,
-			mobile,
-			pincode,
-			aadhar,
-			Voter
 		);
 		res.send({ message: "Data successfully added" });
 	} catch (error) {
@@ -77,10 +80,10 @@ router.post("/getKeyAndAddress", (req, res) => {
 	console.log("indesssssss");
 	let PublicKey = getUserPublicKey(req.body.privateKey);
 	let address = getUserAddress(PublicKey);
-	res.send({ address: address,pub_key:PublicKey });
+	res.send({ address: address, pub_key: PublicKey });
 });
 router.post("/changeEnckey", async (req, res) => {
-	const privateKey = req.body.priv_key; 
+	const privateKey = req.body.priv_key;
 	const oldKey = req.body.oldKey;
 	const newKey = req.body.newKey;
 	const msg = await changeUserKey(privateKey, oldKey, newKey);
@@ -103,13 +106,13 @@ router.get("/policeUi", async (req, res) => {
 		const user = usersList[index];
 		users.push(user);
 	}
-	console.log("INSIDE POLICE UI ",users)
+	console.log("INSIDE POLICE UI ", users)
 	res.render("policeUi", { listings: users });
 });
 router.post("/checkPoliceKey", (req, res) => {
 	let key = req.body.privateKey;
 	let status = checkPoliceKey(key);
-	console.log("STATUS IS ",status+"key",key)
+	console.log("STATUS IS ", status + "key", key)
 	res.send({ status: status });
 });
 router.post("/putStatus", (req, res) => {
@@ -117,21 +120,21 @@ router.post("/putStatus", (req, res) => {
 	const uPub_key = req.body.pub_key;
 	const status = req.body.status;
 	const privateKey = req.body.privateKey;
-	const alert= verifyUser(privateKey, uPub_key, status);
-	res.send({alert:alert})
+	const alert = verifyUser(privateKey, uPub_key, status);
+	res.send({ alert: alert })
 });
 router.post("/decryptData", (req, res) => {
 	let dataToDecrypt = req.body.result;
 	const deKey = req.body.deKey;
 	let BufferData = Buffer.from(dataToDecrypt, "base64").toString("ascii");
-	console.log("Buffer Data data to decrypt is ",JSON.parse(BufferData)[0]);
-	let extraPayload= JSON.parse(BufferData)[1]
-	console.log("extraPayload  is ",extraPayload);
-	console.log("dec Key",deKey);
+	console.log("Buffer Data data to decrypt is ", JSON.parse(BufferData)[0]);
+	let extraPayload = JSON.parse(BufferData)[1]
+	console.log("extraPayload  is ", extraPayload);
+	console.log("dec Key", deKey);
 	let decryptedData = decrypt(JSON.parse(BufferData)[0], deKey);
-	console.log("decrypted Data",decryptedData);
+	console.log("decrypted Data", decryptedData);
 	decryptedData = JSON.parse(decryptedData);
-	res.send({ user: decryptedData , status:extraPayload});
+	res.send({ user: decryptedData, status: extraPayload });
 });
 
 router.post("/VerifyData", (req, res) => {
@@ -140,7 +143,7 @@ router.post("/VerifyData", (req, res) => {
 	let BufferData = Buffer.from(data, "base64").toString("ascii");
 	data = JSON.parse(BufferData);
 	data = data[1];
-	console.log("DAATA{1] inside verify ",data[1])
+	console.log("DAATA{1] inside verify ", data[1])
 	res.send({ status: data });
 });
 

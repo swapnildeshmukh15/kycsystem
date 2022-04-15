@@ -1,5 +1,5 @@
 checkUser = address => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     $.ajax({
       type: 'GET',
       url: '/statedata?address=' + address,
@@ -7,7 +7,7 @@ checkUser = address => {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       },
-      success: function(result) {
+      success: function (result) {
         $.post(
           '/VerifyData',
           { result },
@@ -59,48 +59,49 @@ loginUser = event => {
 
 postUserData = event => {
   event.preventDefault()
-  const name = document.getElementById('name').value
-  const email = document.getElementById('email').value
-  const dob = document.getElementById('dob').value
-  const address = document.getElementById('adderss').value
-  const mobile = document.getElementById('mobile').value
-  const pincode = document.getElementById('pincode').value
-  const aadhar = document.getElementById('aadhar').value
-  const enKey = document.getElementById('enKey').value
-  const Voter = document.getElementById('voter').value ;
   const privateKey = sessionStorage.getItem('privatekey')
   const pub_key = sessionStorage.getItem('pub_key')
-  try
-  {
-    console.log(Voter)
-    if(aadhar.length == 12 && Voter.length == 10 && pincode.length ==6)
-    {
-  $.post(
-    '/userData',
-    {
-      privateKey: privateKey,
-      pub_key: pub_key,
-      name: name,
-      email: email,
-      dob: dob,
-      location: address,
-      mobile: mobile,
-      pincode: pincode,
-      aadhar: aadhar,
-      enKey: enKey ,
-      voter : Voter
-    },
-    'json'
-  )
-  console.log("VALIDATIOmn")
-  alert("Data successfully send to police")
-}else{
-  alert("Please enter valid aadhar , voter id ,pincode details")
-}
-  }catch(err){
-    console.log("ERR IS ",err)
+  const id = document.getElementById('ID').value
+  const hologramID = document.getElementById('HologramID').value
+  const fromNumber = document.getElementById('FromNumber').value
+  const toNumber = document.getElementById('ToNumber').value
+  const quantity = document.getElementById('Quantity').value
+  const organisationID = document.getElementById('OrganisationID').value
+  const isActive = document.getElementById('IsActive').value
+  // const createdDate = document.getElementById('CreatedDate').value
+  const wareHouseID = document.getElementById('WareHouseID').value
+  const prefix = document.getElementById('Prefix').value
+  const enKey = document.getElementById('enKey').value
+  try {
+    if (true) {
+      $.post(
+        '/userData',
+        {
+          privateKey: privateKey,
+          pub_key: pub_key,
+          id: id,
+          hologramID: hologramID,
+          fromNumber: fromNumber,
+          toNumber: toNumber,
+          quantity: quantity,
+          organisationID: organisationID,
+          isActive: isActive,
+          createdDate: '05/05/2002',
+          wareHouseID: wareHouseID,
+          prefix: prefix,
+          enKey: enKey,
+        },
+        'json'
+      )
+      console.log("VALIDATIOmn")
+      alert("Data successfully send to police")
+    } else {
+      alert("Please enter valid aadhar , voter id ,pincode details")
+    }
+  } catch (err) {
+    console.log("ERR IS ", err)
   }
- 
+
 }
 getUserData = event => {
   event.preventDefault()
@@ -110,6 +111,7 @@ getUserData = event => {
     '/getAddressFromPubKey',
     { pub_key },
     (data, textStatus, jqXHR) => {
+      console.log(data)
       $.ajax({
         type: 'GET',
         url: '/statedata?address=' + data.address,
@@ -117,24 +119,27 @@ getUserData = event => {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         },
-        success: function(result) {
+        success: function (result) {
+          console.log(result)
           $.post(
             '/decryptData',
             { result, deKey },
             (data, textStatus, jqXHR) => {
-              $('#name').text(data.user[0])
-              $('#email').text(data.user[1])
-              $('#dob').text(data.user[2])
-              $('#address').text(data.user[3])
-              $('#mobile').text(data.user[4])
-              $('#pincode').text(data.user[5])
-              $('#aadhar').text(data.user[6])
-              $('#voter').text(data.user[8])
+              $('#id').text(data.user[0])
+              $('#hologramID').text(data.user[1])
+              $('#fromNumber').text(data.user[2])
+              $('#toNumber').text(data.user[3])
+              $('#quantity').text(data.user[4])
+              $('#organisationID').text(data.user[5])
+              $('#isActive').text(data.user[6])
+              //$('#createdDate').text(data.user[7])
+              $('#wareHouseID').text(data.user[8])
+              $('#prefix').text(data.user[9])
               console.log(data.status)
               if (data.status[0] == 1) {
                 var date2 = new Date()
                 let minute = parseInt(
-                  (date2-data.status[1]) / (1000 * 60)// 1000*60*60*24 for one day
+                  (date2 - data.status[1]) / (1000 * 60)// 1000*60*60*24 for one day
                 )
                 console.log(minute)
                 // date add cheyithathu ini edit cheyyumobol check cheyyanam
@@ -181,11 +186,13 @@ $('#decryptKey').on('show.bs.modal', event => {
 document.getElementById('publicKeyOnUserForm').value = sessionStorage.getItem(
   'pub_key'
 )
-document.getElementById('name').value = 'Dennis'
-document.getElementById('email').value = 'hehe@hihi.in'
-document.getElementById('adderss').value = 'it doesnt matter'
-document.getElementById('mobile').value = 2255
-document.getElementById('pincode').value = 673007
-document.getElementById('aadhar').value = 123456789012
-document.getElementById('voter').value = 1234567890
-
+document.getElementById('ID').value = 001
+document.getElementById('HologramID').value = 89
+document.getElementById('FromNumber').value = 1200
+document.getElementById('ToNumber').value = 1300
+document.getElementById('Quantity').value = 10000
+document.getElementById('OrganisationID').value = 12345
+document.getElementById('IsActive').value = 123456
+// document.getElementById('CreatedDate').value = '05-04-2022'
+document.getElementById('WareHouseID').value = 123
+document.getElementById('Prefix').value = 'BB123'

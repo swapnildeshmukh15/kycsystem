@@ -16,32 +16,37 @@ function addUserData(
   Key,
   pub_key,
   enKey,
-  name,
-  email,
-  dob,
-  location,
-  mobile,
-  pincode,
-  aadhar,
-  Voter
+  id,
+  hologramID,
+  fromNumber,
+  toNumber,
+  quantity,
+  organisationID,
+  isActive,
+  createdDate,
+  wareHouseID,
+  prefix,
+  privateKey,
 ) {
   let address = getUserAddress(pub_key)
   let payload = [
-    name,
-    email,
-    dob,
-    location,
-    mobile,
-    pincode,
-    aadhar,
+    id,
+    hologramID,
+    fromNumber,
+    toNumber,
+    quantity,
+    organisationID,
+    isActive,
+    createdDate,
+    wareHouseID,
+    prefix,
     getUserPublicKey(Key),
-    Voter
   ]
   payload = JSON.stringify(payload)
   //encryption
   encryptedPayload = encrypt(payload, enKey)
   console.log('Encrypted Payload', encryptedPayload)
-  let appendedPayload = [-1, [encryptedPayload, [name, mobile, location]]]
+  let appendedPayload = [-1, [encryptedPayload, [hologramID, wareHouseID, prefix]]]
   appendedPayload = JSON.stringify(appendedPayload)
   createTransaction(FAMILY_NAME, [address], [address], Key, appendedPayload)
 }
